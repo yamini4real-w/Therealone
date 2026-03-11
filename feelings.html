@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#d7f0ff);
+padding:40px 20px;
+overflow-y:auto;
+position:relative;
+}
+.card{
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(14px);
+padding:28px;
+border-radius:24px;
+box-shadow:0 15px 35px rgba(0,0,0,0.12);
+margin-bottom:25px;
+opacity:0;
+transform:translateY(40px);
+transition:0.7s;
+}
+.card.show{opacity:1;transform:translateY(0)}
+h1{font-family:'Pacifico',cursive;font-size:40px;color:#ff4f81;margin-bottom:10px}
+h2{color:#ff4f81;margin-bottom:12px}
+.text{font-size:15px;line-height:1.6;margin-bottom:12px}
+.timeline{display:flex;flex-direction:column;gap:15px;margin-top:10px}
+.timeline-item{background:white;padding:14px;border-radius:16px;box-shadow:0 5px 15px rgba(0,0,0,0.1);cursor:pointer;transition:0.25s}
+.timeline-item:hover{transform:scale(1.03)}
+.button{margin-top:15px;padding:12px 22px;border-radius:30px;border:none;
+cursor:pointer;background:linear-gradient(135deg,#7aa6ff,#5b7cfa);color:white;font-size:14px;transition:0.3s}
+.button:hover{transform:scale(1.08);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+.heart{position:fixed;font-size:14px;pointer-events:none;animation:float 1s linear forwards;opacity:0.5;}
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-20px);opacity:0}}
+</style>
+</head>
+<body><div class="card show">
+<h1>A Little Story About Us ✨</h1>
+<p class="text">Some moments that made me realize you’re special to me 💖</p>
+</div><div class="card">
+<h2>Timeline of Moments</h2>
+<div class="timeline">
+<div class="timeline-item" onclick="showMoment('It was in my dream… but i could not stop thinking about you....')">👀 First Time I Noticed You</div>
+<div class="timeline-item" onclick="showMoment('You smiled and my day suddenly got brighter!')">😊 First Smile Exchange</div>
+<div class="timeline-item" onclick="showMoment('We laughed... Ahh we never laughed.. never even had a conversation.')">💬 Funny Conversation</div>
+<div class="timeline-item" onclick="showMoment('Every little moment with you.. this also never happened.. but if we did, it would be the best....')">🌟 Simple Moments</div>
+</div>
+<div class="text" id="momentBox">Click a moment above to see the memory ✨</div>
+<button class="button" onclick="randomMoment()">Reveal Random Feeling 💌</button>
+</div><div class="card">
+<h2>Next Step</h2>
+<p class="text">After all these moments, there’s just one thing I need to ask…</p>
+<button class="button" onclick="nextPage()">Next → The Big Question</button>
+</div><script>
+const moments=[
+'You make me smile unexpectedly 😄',
+'I think about you too much 😅',
+'Your laugh is unforgettable 😍',
+'Being near you makes me feel overwhelmed.?',
+'Every small moment with you might have made my day memorable✨'
+];
+
+function showMoment(msg){
+document.getElementById('momentBox').innerText=msg;
+}
+
+function randomMoment(){
+const msg=moments[Math.floor(Math.random()*moments.length)];
+document.getElementById('momentBox').innerText=msg;
+}
+
+function nextPage(){
+window.location.href='proposal.html';
+}
+
+// scroll reveal
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+cards.forEach(c=>{
+const rect=c.getBoundingClientRect();
+if(rect.top<window.innerHeight-80){c.classList.add('show')}
+});
+});
+
+// heart cursor
+document.addEventListener('mousemove',e=>{
+const heart=document.createElement('div');
+heart.className='heart';
+heart.innerHTML='❤';
+heart.style.left=e.pageX+'px';
+heart.style.top=e.pageY+'px';
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),900);
+});
+</script></body>
+</html>

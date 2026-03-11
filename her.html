@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About You</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#d7f0ff);
+padding:40px 20px;
+overflow-y:auto;
+position:relative;
+}.card{ background:rgba(255,255,255,0.85); backdrop-filter:blur(14px); padding:30px; border-radius:24px; box-shadow:0 15px 35px rgba(0,0,0,0.12); margin-bottom:25px; text-align:center; opacity:0; transform:translateY(40px); transition:0.7s; } .card.show{opacity:1;transform:translateY(0)}
+
+h1{font-family:'Pacifico',cursive;font-size:40px;color:#ff4f81;margin-bottom:10px} h2{color:#ff4f81;margin-bottom:12px} .text{font-size:15px;line-height:1.6;margin-bottom:15px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:10px} .card-item{ background:white;padding:14px;border-radius:16px; box-shadow:0 5px 15px rgba(0,0,0,0.1); cursor:pointer; transition:0.3s; } .card-item:hover{transform:scale(1.05)}
+
+.button{margin-top:15px;padding:12px 22px;border-radius:30px;border:none; cursor:pointer;background:linear-gradient(135deg,#7aa6ff,#5b7cfa);color:white;font-size:14px;transition:0.3s} .button:hover{transform:scale(1.08);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+
+.heart{position:fixed;font-size:14px;pointer-events:none;animation:float 1s linear forwards;opacity:0.5;} @keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-20px);opacity:0}} </style>
+
+</head>
+<body><div class="card show">
+<h1>About You 💖</h1>
+<p class="text">Okay… enough about me. Let's talk about the real reason this website exists.</p>
+</div><div class="card">
+<h2>Why You’re Special</h2>
+<div class="grid">
+<div class="card-item" onclick="showMessage('Your presence is just overwhelming!')">🌸 You, Yamini</div>
+<div class="card-item" onclick="showMessage('You are just amazing, and mysterious!')">😊 Your Personality</div>
+<div class="card-item" onclick="showMessage('You have amazing, shy energy!')">🌟 Your Vibe</div>
+<div class="card-item" onclick="showMessage('Talking to you could have been fun, but... we never talked.')">💬 Conversations</div>
+</div>
+<div class="text" id="compliment">Click a card above to see a compliment 💌</div>
+<button class="button" onclick="randomCompliment()">Secret Compliment</button>
+</div><div class="card">
+<h2>Next Step</h2>
+<p class="text">Somewhere between random moments and small conversations… you became someone important to me.</p>
+<button class="button" onclick="nextPage()">Next → A Small Story</button>
+</div><script>
+const compliments=[
+'You have main character energy!','You make normal days feel extraordinary!','You’re dangerously easy to like!','Your laugh is contagious!','You make life feel brighter!' ]
+
+function showMessage(msg){
+document.getElementById('compliment').innerText=msg;
+}
+
+function randomCompliment(){
+const msg=compliments[Math.floor(Math.random()*compliments.length)];
+document.getElementById('compliment').innerText=msg;
+}
+
+function nextPage(){
+window.location.href='feelings.html';
+}
+
+// Scroll reveal
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+cards.forEach(c=>{
+const rect=c.getBoundingClientRect();
+if(rect.top<window.innerHeight-80){c.classList.add('show')}
+});
+});
+
+// Heart cursor
+document.addEventListener('mousemove',e=>{
+const heart=document.createElement('div');
+heart.className='heart';
+heart.innerHTML='❤';
+heart.style.left=e.pageX+'px';
+heart.style.top=e.pageY+'px';
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),900);
+});
+</script></body>
+</html>

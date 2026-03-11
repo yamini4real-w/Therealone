@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+min-height:100vh;
+display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#d7f0ff);
+overflow-y:auto;
+position:relative;
+padding:20px;
+transition: opacity 0.8s ease;
+opacity:0;
+}
+body.loaded{opacity:1;}
+.container{
+text-align:center;
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(14px);
+padding:50px 30px;
+border-radius:28px;
+box-shadow:0 20px 45px rgba(0,0,0,0.15);
+max-width:650px;
+position:relative;
+}
+h1{font-family:'Pacifico',cursive;font-size:46px;color:#ff4f81;margin-bottom:15px;}
+h2{font-family:'Pacifico',cursive;font-size:28px;color:#ff7eb3;margin-bottom:20px;}
+p{font-size:16px;margin-bottom:20px;line-height:1.6;color:#333;}
+.button{
+padding:14px 28px;border:none;border-radius:30px;font-size:16px;
+cursor:pointer;color:white;
+background:linear-gradient(135deg,#ff7eb3,#ff758c);transition:0.3s;
+}
+.button:hover{transform:scale(1.08);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.heart{position:fixed;font-size:14px;pointer-events:none;animation:float 1s linear forwards;opacity:0.5;}
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-20px);opacity:0}}
+.balloons{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+pointer-events:none;
+}
+.balloon{
+position:absolute;
+font-size:20px;
+animation:floatUp 5s linear infinite;
+}
+@keyframes floatUp{
+0%{transform:translateY(100vh) rotate(0deg);opacity:1}
+100%{transform:translateY(-50px) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+<body><div class="container">
+<h1>Welcome 💖</h1>
+<h2>Let’s Go on a Little Journey...</h2>
+<p>This little adventure is just for you, to share some secrets, smiles, and a bit of my heart 😊✨</p>
+<p>Click the button below to start exploring, laughing, and discovering the feelings I’ve kept just for you.</p>
+<button class="button" onclick="startJourney()">Start the Journey 🚀</button>
+</div><div class="balloons" id="balloons"></div><script>
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+  createBalloons();
+});
+
+// Heart cursor effect
+const colors=['#ff4f81','#ff7eb3','#ff758c','#7aa6ff','#5b7cfa'];
+document.addEventListener('mousemove', e => {
+  const heart=document.createElement('div');
+  heart.className='heart';
+  heart.innerHTML='❤';
+  heart.style.left=e.pageX+'px';
+  heart.style.top=e.pageY+'px';
+  heart.style.color=colors[Math.floor(Math.random()*colors.length)];
+  heart.style.fontSize=(10+Math.random()*12)+'px';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),900);
+});
+
+function startJourney(){
+  window.location.href='about.html';
+}
+
+// Floating balloons for extra cute effect
+function createBalloons(){
+  const balloonsContainer=document.getElementById('balloons');
+  for(let i=0;i<20;i++){
+    const balloon=document.createElement('div');
+    balloon.className='balloon';
+    balloon.style.left=Math.random()*100+'vw';
+    balloon.style.fontSize=(15+Math.random()*20)+'px';
+    balloon.style.animationDuration=(4+Math.random()*3)+'s';
+    balloon.innerHTML='🎈';
+    balloonsContainer.appendChild(balloon);
+  }
+}
+</script></body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#d7f0ff);
+overflow-y:auto;
+padding:40px 20px;
+}
+
+.container{max-width:750px;margin:auto;display:flex;flex-direction:column;gap:25px}
+
+.card{
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(14px);
+padding:30px;
+border-radius:24px;
+box-shadow:0 15px 35px rgba(0,0,0,0.12);
+text-align:center;
+opacity:0;
+transform:translateY(40px);
+transition:0.7s;
+}
+
+.card.show{opacity:1;transform:translateY(0)}
+
+h1{font-family:'Pacifico',cursive;font-size:40px;color:#ff4f81;margin-bottom:10px}
+
+.subtitle{font-size:18px;margin-bottom:15px}
+
+.text{font-size:15px;line-height:1.7}
+
+.profile{
+display:flex;flex-direction:column;align-items:center;gap:10px
+}
+
+.avatar{
+width:110px;height:110px;border-radius:50%;
+background:linear-gradient(135deg,#ff7eb3,#ff758c);
+display:flex;align-items:center;justify-content:center;
+font-size:40px;color:white;
+box-shadow:0 10px 20px rgba(0,0,0,0.15)
+}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+
+.fact{
+background:white;padding:12px;border-radius:14px;font-size:14px;
+box-shadow:0 5px 10px rgba(0,0,0,0.08);cursor:pointer;
+transition:0.25s
+}
+
+.fact:hover{transform:scale(1.05)}
+
+.jokeBox{
+margin-top:15px;background:white;padding:14px;border-radius:12px;
+box-shadow:0 5px 10px rgba(0,0,0,0.08);font-size:14px;min-height:45px
+}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+
+.stat{
+background:white;padding:14px;border-radius:12px;font-size:14px;
+box-shadow:0 5px 10px rgba(0,0,0,0.08)
+}
+
+.buttons{margin-top:15px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+button{
+border:none;padding:12px 22px;border-radius:30px;cursor:pointer;
+background:linear-gradient(135deg,#ff7eb3,#ff758c);color:white;font-size:14px;
+transition:0.3s
+}
+
+button:hover{transform:scale(1.08);box-shadow:0 8px 18px rgba(0,0,0,0.2)}
+
+.next{background:linear-gradient(135deg,#7aa6ff,#5b7cfa)}
+
+.heart{
+position:fixed;font-size:14px;pointer-events:none;animation:fade 1s linear forwards
+}
+
+@keyframes fade{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-20px)}}
+
+</style></head><body><div class="container"><div class="card show">
+<div class="profile">
+<div class="avatar">🙂</div>
+<h1>About Me</h1>
+<p class="subtitle">The developer behind this slightly dramatic website</p>
+<p class="text">Hi. I'm Prayag, the person who decided that coding a whole website is a reasonable way to express feelings instead of sending a simple message. Efficient? No. Memorable? Hopefully yes. 😅</p>
+</div>
+</div><div class="card">
+<h2>Random Developer Facts</h2>
+<div class="grid">
+<div class="fact" onclick="factClicked(this)">Likes coding (even when bugs win)</div>
+<div class="fact" onclick="factClicked(this)">Writes a lot, maybe you know now</div>
+<div class="fact" onclick="factClicked(this)">Lived three times, in a single life</div>
+<div class="fact" onclick="factClicked(this)">Overthinks everything, even you</div>
+</div>
+<div class="jokeBox" id="jokeBox">Click a fact above and see what happens 👀</div>
+</div><div class="card">
+<h2>Developer Stats</h2>
+<div class="stats">
+<div class="stat">Lines of Code Written: <b>Too Many</b></div>
+<div class="stat">Stories Created: <b>Also Too Many</b></div>
+<div class="stat">Times I Checked on you: <b>Not defined</b></div>
+<div class="stat">Reason This Website Exists: <b>You</b> 🙂</div>
+</div><div class="buttons">
+<button onclick="tellJoke()">Generate Random Fact</button>
+<button class="next" onclick="nextPage()">Next → Someone Special</button>
+</div>
+</div></div><script>
+
+const jokes=[
+"Fun fact: This page took longer to make than my last exam preparation.",
+"Fun fact: Debugging code is basically detective work.",
+"Fun fact: This whole website exists because someone is special.",
+"Fun fact: 90% of coding is the motivation i get from you.",
+"Fun fact: If this looks professional... please assume I planned it."
+]
+
+function tellJoke(){
+const box=document.getElementById('jokeBox')
+box.innerText=jokes[Math.floor(Math.random()*jokes.length)]
+}
+
+function factClicked(el){
+el.style.background="#ffe4f1"
+document.getElementById('jokeBox').innerText="You clicked a fact. Achievement unlocked: Curiosity."
+}
+
+function nextPage(){
+window.location.href="her.html"
+}
+
+// scroll reveal
+const cards=document.querySelectorAll('.card')
+window.addEventListener('scroll',()=>{
+cards.forEach(card=>{
+const rect=card.getBoundingClientRect()
+if(rect.top<window.innerHeight-80){card.classList.add('show')}
+})
+})
+
+// heart cursor
+document.addEventListener('mousemove',e=>{
+const heart=document.createElement('div')
+heart.className='heart'
+heart.innerHTML='❤'
+heart.style.left=e.pageX+'px'
+heart.style.top=e.pageY+'px'
+document.body.appendChild(heart)
+setTimeout(()=>heart.remove(),900)
+})
+
+</script></body>
+</html>

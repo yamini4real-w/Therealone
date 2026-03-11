@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+min-height:100vh;
+display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#d7f0ff);
+overflow-y:auto;
+position:relative;
+padding:40px 20px;
+transition: opacity 0.8s ease;
+opacity:0;
+}
+body.loaded{opacity:1;}
+.container{
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(14px);
+padding:50px 35px;
+border-radius:28px;
+box-shadow:0 20px 45px rgba(0,0,0,0.15);
+text-align:center;
+max-width:600px;
+position:relative;
+}
+h1{font-family:'Pacifico',cursive;font-size:40px;color:#ff4f81;margin-bottom:15px;}
+p{font-size:16px;margin-bottom:20px;line-height:1.6;}
+#reviewBox{background:white;padding:15px;border-radius:14px;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:20px;font-size:14px;min-height:50px;}
+.button{padding:14px 28px;border:none;border-radius:30px;font-size:16px;cursor:pointer;color:white;background:linear-gradient(135deg,#ff7eb3,#ff758c);transition:0.3s;}
+.button:hover{transform:scale(1.08);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.heart{position:fixed;font-size:14px;pointer-events:none;animation:float 1s linear forwards;opacity:0.5;}
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-20px);opacity:0}}
+</style>
+</head>
+<body><div class="container">
+<h1>Thank You 💖</h1>
+<p>Your thoughts made this journey even more special 😊</p>
+<div id="reviewBox">"Your review will appear here"</div>
+<p>I'm really grateful, and I can't wait for all the wonderful moments ahead! 🌸</p>
+<button class="button" onclick="finish()">The End 💌</button>
+</div><script>
+// Page fade-in
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+});
+
+// floating hearts
+const colors = ['#ff4f81','#ff7eb3','#ff758c','#7aa6ff','#5b7cfa'];
+document.addEventListener('mousemove', e => {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.innerHTML = '❤';
+  heart.style.left = e.pageX + 'px';
+  heart.style.top = e.pageY + 'px';
+  heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+  heart.style.fontSize = (10 + Math.random()*12)+'px';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),900);
+});
+
+// Display review from URL
+function displayReviewHearts(text){
+  for(let i=0;i<10;i++){
+    const heart = document.createElement('div');
+    heart.className='heart';
+    heart.innerText = text.split('')[Math.floor(Math.random()*text.length)];
+    heart.style.left = Math.random()*80 + 'vw';
+    heart.style.top = Math.random()*80 + 'vh';
+    heart.style.fontSize = (12+Math.random()*12)+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),2000+Math.random()*3000);
+  }
+}
+
+const params = new URLSearchParams(window.location.search);
+const review = params.get('text');
+if(review){
+  document.getElementById('reviewBox').innerText = '"'+review+'"';
+  displayReviewHearts(review);
+}
+
+function finish(){
+  alert('Thanks for completing the journey! 💖');
+}
+</script></body>
+</html>

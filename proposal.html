@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You?</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+min-height:100vh;
+display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#ffd6e7,#e8d9ff,#d7f0ff);
+overflow-y:auto;
+position:relative;
+transition: opacity 0.8s ease;
+opacity:0;
+}
+body.loaded{opacity:1;}
+.container{
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(14px);
+padding:50px 35px;
+border-radius:28px;
+box-shadow:0 20px 45px rgba(0,0,0,0.15);
+text-align:center;
+max-width:600px;
+position:relative;
+}
+h1{font-family:'Pacifico',cursive;font-size:42px;color:#ff4f81;margin-bottom:15px}
+p{font-size:16px;margin-bottom:30px;line-height:1.6}
+.button{
+padding:14px 28px;border:none;border-radius:30px;font-size:16px;
+cursor:pointer;color:white;transition:0.3s;
+}
+.yes{background:linear-gradient(135deg,#ff7eb3,#ff758c);margin:0 10px;}
+.no{background:linear-gradient(135deg,#7aa6ff,#5b7cfa);margin:0 10px;position:absolute;}
+.button:hover{transform:scale(1.08);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+.heart{position:fixed;font-size:14px;pointer-events:none;animation:float 1s linear forwards;opacity:0.5;}
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-20px);opacity:0}}
+</style>
+</head>
+<body><div class="container">
+<h1>One Question 💖</h1>
+<p>After all these pages… there is just one thing I want to ask you.</p>
+<p>Will you give me a chance to be someone special in your life?</p><button class="button yes" onclick="yesClicked()">Yes 😊</button> <button class="button no" id="noBtn">No 😅</button>
+
+<p id="response" style="margin-top:20px;font-size:15px;color:#ff4f81;"></p>
+</div><script>
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+});
+
+// Heart cursor effect
+const colors = ['#ff4f81','#ff7eb3','#ff758c','#7aa6ff','#5b7cfa'];
+document.addEventListener('mousemove', e => {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.innerHTML = '❤';
+  heart.style.left = e.pageX + 'px';
+  heart.style.top = e.pageY + 'px';
+  heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+  heart.style.fontSize = (10 + Math.random()*12)+'px';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),900);
+});
+
+// No button playful logic
+let noAttempts = 0;
+const maxAttempts = 3;
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseenter', () => {
+  if(noAttempts < maxAttempts){
+    const x = Math.random()*70+10;
+    const y = Math.random()*70+10;
+    noBtn.style.transform = `translate(${x}vw, ${y}vh)`;
+    noAttempts++;
+  }
+});
+
+// Yes button logic
+function yesClicked(){
+  document.getElementById('response').innerText='Yay! 💖 I am so happy! Thank you for giving me a chance!';
+  setTimeout(()=>{
+    window.location.href='response.html';
+  },1000); // Redirect to response page after 1s
+}
+</script></body>
+</html>
